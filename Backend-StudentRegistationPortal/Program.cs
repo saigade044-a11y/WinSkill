@@ -11,26 +11,21 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
-
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-
 
         builder.Services.AddDbContext<Database1>(options =>
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("Main1"));
         });
 
-
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowReactApp",
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:3000") // React app URL
+                    policy.WithOrigins("http://localhost:3000") 
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
@@ -40,34 +35,33 @@ internal class Program
 
         builder.Services.AddAuthentication(options =>
         {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;  //validating the token SuccessFul Or Not
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;//if failure occurs 
-        }).AddJwtBearer(options =>
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
         {
             options.SaveToken = true;
-            options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+            options.TokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 ValidateIssuerSigningKey = true,
-                
                 IssuerSigningKey = new SymmetricSecurityKey(key)
             };
         });
 
-        //telling to swagger
         builder.Services.AddSwaggerGen(options =>
         {
             options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
             {
-                In = Microsoft.OpenApi.Models.ParameterLocation.Header, //where to add the token http header
+                In = Microsoft.OpenApi.Models.ParameterLocation.Header,
                 Description = "Please Enter Bearer [Space] and The Token Generated",
                 Scheme = "Bearer",
-                Name = "Authorization", //authization header
+                Name = "Authorization",
             });
 
             options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement()
-            { //applying the scheme globally endpoint
+            {
                 {
                     new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
                     {
@@ -82,11 +76,25 @@ internal class Program
             });
         });
 
+        var app = builder.Build();
 
+        // -----------------------------------------------
+        // ✅ MIGRATION MODE (for Kubernetes Job)
+        // -----------------------------------------------
+        if (args.Contains("--migrate"))
+        {
+            Console.WriteLine("✔ Running EF Core migrations...");
 
-var app = builder.Build();
+            using var scope = app.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<Database1>();
 
-        // Configure the HTTP request pipeline.
+            db.Database.Migrate();
+
+            Console.WriteLine("✔ Migration Completed. Exiting...");
+            return; // 🔥 exit without starting the API
+        }
+        // -----------------------------------------------
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -94,11 +102,8 @@ var app = builder.Build();
         }
 
         app.UseCors("AllowReactApp");
-
         app.UseAuthentication();
-
         app.UseAuthorization();
-
         app.MapControllers();
 
         app.Run();
