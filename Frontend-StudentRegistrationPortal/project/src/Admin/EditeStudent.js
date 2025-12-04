@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import './Css/EditStudent1.css';
 import NavBar from "./NavBar";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // import icons
-
-
+import '../index.css'; // <-- ADD THIS LINE
 const EditeStudent = () => {
     const { id } = useParams();
     const navigate = useNavigate();

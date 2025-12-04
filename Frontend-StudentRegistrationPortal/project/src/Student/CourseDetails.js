@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "./NavBar";
-import './css/CourseDetailscss1.css';
-
+import '../index.css'; // <-- ADD THIS LINE
 const StudentHome = () => {
     const [courses, setCourses] = useState([]);
     const[search,setSearch]=useState("");

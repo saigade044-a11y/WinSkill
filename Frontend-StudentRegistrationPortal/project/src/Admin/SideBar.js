@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Css/sidebarcode1.css';
 import NavBar from './NavBar';
-
+import '../index.css'; // <-- ADD THIS LINE
 const SideBar = () => {
   const username = localStorage.getItem("email");
   const token = localStorage.getItem("token");

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import './Css/EditingPost.css';
 import SideBar from "./SideBar";
 import NavBar from "./NavBar";
 import { Navigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // import icons
 
-
-
+import '../index.css'; // <-- ADD THIS LINE
 
 const EditPost = () => {
     const { id } = useParams();

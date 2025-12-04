@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import './Css/AllStudents1.css';
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // import icons
-
+import '../index.css'; // <-- ADD THIS LINE
 
 const AllStudents = () => {
 

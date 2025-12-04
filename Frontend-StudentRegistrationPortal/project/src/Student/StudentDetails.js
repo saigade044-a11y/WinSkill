@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
-import './css/StudentDeatails1.css';
+import '../index.css'; // <-- ADD THIS LINE
 import Navbar from './NavBar';
 
 import { useNavigate } from 'react-router-dom';

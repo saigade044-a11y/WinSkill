@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
-
-import './Css/CreateStudent.css';
+import '../index.css'; // <-- ADD THIS LINE
 import NavBar from './NavBar';
 import AllCourses from './AllCourses';
 import AllStudents from './AllStudents';

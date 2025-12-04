@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import './Css/CreateCourse1.css';
 import NavBar from "./NavBar";
 import AllCourses from "./AllCourses";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // import icons
-
-
+import '../index.css'; // <-- ADD THIS LINE
 const CreateCourse = () => {
     const [courseName, setCourseName] = useState("");
     const [courseDescription, setCourseDescription] = useState("");

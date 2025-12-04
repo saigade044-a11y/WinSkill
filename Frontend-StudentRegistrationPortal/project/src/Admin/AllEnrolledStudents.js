@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "./Css/AllCoursesAndEnrollments.css";
 import NavBar from "./NavBar";
 import { Navigate, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // import icons
-
+import '../index.css'; // <-- ADD THIS LINE
 
 
 const AllEnrolledStudents = () => {

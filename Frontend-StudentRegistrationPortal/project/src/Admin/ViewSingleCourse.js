@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import './Css/ViewSingleCourse1.css';
 import NavBar from './NavBar';
 import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // import icons
-
-
-
+import '../index.css'; // <-- ADD THIS LINE
 const ViewSingleCourse = ({ courses = [] }) => {
 
     const { id } = useParams();

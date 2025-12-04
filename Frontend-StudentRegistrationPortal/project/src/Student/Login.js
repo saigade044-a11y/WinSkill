@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import './css/Login1css.css';
-
+import '../index.css'; // <-- ADD THIS LINE
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

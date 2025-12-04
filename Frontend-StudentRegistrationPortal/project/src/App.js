@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import './index.css';
 
 // Admin Components
 import SideBar from "./Admin/SideBar";
